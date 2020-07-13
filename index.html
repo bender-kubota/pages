@@ -10,7 +10,7 @@
         <iframe id="launch_frame" name="launch_frame"> </iframe>
     </div>
 
-    <a href="公式サイトのURLとかここに入れるべし！">サイトを開く</a>
+    <div id="link"></div>
 
     <script>
         // アプリを開く。アプリがインストールされていなければサイトを開く。
@@ -20,23 +20,31 @@
             var ANDROID_SCHEME = 'twitter';
             var ANDROID_PACKAGE = 'com.twitter.android';
             var PC_SITE = 'https://twitter.com/'
+			
+			var elem = document.getElementById("link");
 
             var userAgent = navigator.userAgent.toLowerCase();
             // iPhone端末ならアプリを開くかApp Storeを開く。
             if (userAgent.search(/iphone|ipad|ipod/) > -1) {
                 launch_frame.location.href = IOS_SCHEME + '://';
                 setTimeout(function() {
-                    location.href = IOS_STORE;
+//                    location.href = IOS_STORE;
+					var url = IOS_STORE;
+					elem.innerHTML = "<a href=\"" + url + "\">" + url + "</a>";
                 }, 500);
             }
             // Android端末ならアプリを開くかGoogle Playを開く。
             else if (userAgent.search(/android/) > -1) {
-                document.location = 'intent://#Intent;scheme=' + ANDROID_SCHEME
-                        + ';package=' + ANDROID_PACKAGE + ';end';
+//                document.location = 'intent://#Intent;scheme=' + ANDROID_SCHEME
+//                        + ';package=' + ANDROID_PACKAGE + ';end';
+				var url = 'intent://#Intent;scheme=' + ANDROID_SCHEME + ';package=' + ANDROID_PACKAGE + ';end';
+				elem.innerHTML = "<a href=\"" + url + "\">" + url + "</a>";
             }
             // その他・不明・PCなどの場合はサイトを開く。
             else {
-                document.location = PC_SITE;
+//                document.location = PC_SITE;
+				var url = PC_SITE;
+				elem.innerHTML = "<a href=\"" + url + "\">" + url + "</a>";
             }
         }
 
